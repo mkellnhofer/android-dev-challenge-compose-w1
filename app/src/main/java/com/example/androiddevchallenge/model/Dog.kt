@@ -18,7 +18,7 @@ package com.example.androiddevchallenge.model
 import androidx.annotation.DrawableRes
 import java.net.URL
 
-data class Dog (
+data class Dog(
     val id: Long,
     val name: String,
     @DrawableRes

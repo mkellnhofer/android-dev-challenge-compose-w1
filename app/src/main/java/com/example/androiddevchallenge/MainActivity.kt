@@ -52,7 +52,8 @@ fun MyApp() {
         ) {
             ListScreen(
                 navController = navController,
-                repository = repository)
+                repository = repository
+            )
         }
         composable(
             "info/{dogId}",
@@ -61,11 +62,12 @@ fun MyApp() {
                     type = NavType.LongType
                 }
             )
-        ) {
-            backStackEntry -> InfoScreen(
+        ) { backStackEntry ->
+            InfoScreen(
                 navController = navController,
                 repository = repository,
-                backStackEntry.arguments?.getLong("dogId"))
+                backStackEntry.arguments?.getLong("dogId")
+            )
         }
     }
 }
