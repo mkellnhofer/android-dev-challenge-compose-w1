@@ -21,14 +21,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.navigate
 import com.example.androiddevchallenge.data.DogRepo
 import com.example.androiddevchallenge.data.dummyDogs
 import com.example.androiddevchallenge.model.Dog
 
 @Composable
 fun ListScreen(
-    repository: DogRepo,
-    navigateToDogAction: (Long) -> Unit
+    navController: NavController,
+    repository: DogRepo
 ) {
     val dogs by repository.getAllDogs().observeAsState(emptyList())
 
@@ -43,7 +45,7 @@ fun ListScreen(
         DogList(
             modifier = Modifier.fillMaxWidth(),
             dogs = dogs,
-            onClick = { navigateToDogAction(it.id) },
+            onClick = { navController.navigate("info/${it.id}") },
         )
     }
 }

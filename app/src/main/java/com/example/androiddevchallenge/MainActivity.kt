@@ -20,6 +20,11 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.navArgument
+import androidx.navigation.compose.rememberNavController
 import com.example.androiddevchallenge.data.DogRepo
 import com.example.androiddevchallenge.ui.theme.MyTheme
 
@@ -39,7 +44,30 @@ val repository = DogRepo()
 
 @Composable
 fun MyApp() {
-    ListScreen(repository = repository, navigateToDogAction = {})
+    val navController = rememberNavController()
+
+    NavHost(navController, startDestination = "list") {
+        composable(
+            "list"
+        ) {
+            ListScreen(
+                navController = navController,
+                repository = repository)
+        }
+        composable(
+            "info/{dogId}",
+            arguments = listOf(
+                navArgument("dogId") {
+                    type = NavType.LongType
+                }
+            )
+        ) {
+            backStackEntry -> InfoScreen(
+                navController = navController,
+                repository = repository,
+                backStackEntry.arguments?.getLong("dogId"))
+        }
+    }
 }
 
 @Preview("Light Theme", widthDp = 360, heightDp = 640)

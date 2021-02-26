@@ -1,14 +1,14 @@
 package com.example.androiddevchallenge
 
 import androidx.annotation.PluralsRes
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -17,18 +17,35 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.example.androiddevchallenge.data.DogRepo
 import com.example.androiddevchallenge.data.dummyDogs
 import com.example.androiddevchallenge.model.Dog
 
 @Composable
 fun InfoScreen(
-    dog: Dog
+    navController: NavController,
+    repository: DogRepo,
+    dogId: Long?
 ) {
+    val dog = dogId?.let { repository.getDogById(it).observeAsState().value } ?: return
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = { Text(text = dog.name) }
+                navigationIcon = {
+                    Icon(
+                        modifier = Modifier
+                            .padding(horizontal = 12.dp)
+                            .clickable { navController.popBackStack() },
+                        imageVector = Icons.Rounded.ArrowBack,
+                        contentDescription = null
+                    )
+                },
+                title = {
+                    Text(text = dog?.name)
+                }
             )
         }
     ) {
