@@ -10,12 +10,8 @@
     the License.
 -->
 <resources>
-    <string name="app_name">Adoptadog</string>
-    <string name="label_breed">Breed</string>
-    <string name="label_age">Age</string>
-    <string name="label_info">Info</string>
-    <string name="label_wiki">Wiki</string>
-
-    <string name="plurals_years_one">year</string>
-    <string name="plurals_years_other">years</string>
+    <plurals name="plurals_years">
+        <item quantity="one">@string/plurals_years_one</item>
+        <item quantity="other">@string/plurals_years_other</item>
+    </plurals>
 </resources>

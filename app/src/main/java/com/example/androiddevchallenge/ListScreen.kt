@@ -115,7 +115,7 @@ fun DogItem(
                 LocalContentAlpha provides ContentAlpha.medium
             ) {
                 Text(
-                    text = dog.bred,
+                    text = dog.breed,
                     style = MaterialTheme.typography.body2,
                     fontSize = 12.sp
                 )
